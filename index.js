@@ -1,4 +1,4 @@
-const main = document.querySelector('main');
+const main = document.querySelector("main");
 let exerciceArray = [
   { pic: 0, min: 1 },
   { pic: 1, min: 1 },
@@ -15,13 +15,13 @@ let exerciceArray = [
 class Exercice {}
 const utils = {
   pageContent: function (title, content, btn) {
-    document.querySelector('h1').innerHTML = title;
+    document.querySelector("h1").innerHTML = title;
     main.innerHTML = content;
-    document.querySelector('.btn-container').innerHTML = btn;
+    document.querySelector(".btn-container").innerHTML = btn;
   },
   handleEventMinutes: function () {
-    document.querySelectorAll('input[type=number]').forEach((input) => {
-      input.addEventListener('input', (e) => {
+    document.querySelectorAll("input[type=number]").forEach((input) => {
+      input.addEventListener("input", (e) => {
         exerciceArray.map((exo) => {
           if (exo.pic == e.target.id) {
             exo.min = parseInt(e.target.value);
@@ -32,19 +32,28 @@ const utils = {
   },
 
   handleEventArrow: function () {
-    document.querySelectorAll('.arrow').forEach((arrow) => {
-      arrow.addEventListener('click', (e) => {
+    document.querySelectorAll(".arrow").forEach((arrow) => {
+      arrow.addEventListener("click", (e) => {
+        let position = 0;
         exerciceArray.map((exo) => {
-          let position = 0;
-          let id = e.target.dataset.pic;
-          if (exo.pic == e.target.dataset.pic) {
-            [exerciceArray[id - 1], exerciceArray[id]] = [exerciceArray[id], exerciceArray[id - 1]];
-            return console.log('yes');
+          if (position === 0) {
+            [exerciceArray[0], exerciceArray[exerciceArray.length - 1]] = [
+              exerciceArray[exerciceArray.length - 1],
+              exerciceArray[0],
+            ];
+          }
+          if (exo.pic == e.target.dataset.pic && position !== 0) {
+            [exerciceArray[position - 1], exerciceArray[position]] = [
+              exerciceArray[position],
+              exerciceArray[position - 1],
+            ];
+            return;
           } else {
             position++;
-            console.log(position);
           }
         });
+        page.lobby();
+        console.log(exerciceArray);
       });
     });
   },
@@ -65,7 +74,7 @@ const page = {
             </li>
     `
       )
-      .join('');
+      .join("");
 
     utils.pageContent(
       "Parametrage<i id='reboot' class='fas fa-undo'></i>",
@@ -77,7 +86,7 @@ const page = {
     utils.handleEventArrow();
   },
   routine: function () {
-    utils.pageContent('routine', 'Exercice avec chrono', null);
+    utils.pageContent("routine", "Exercice avec chrono", null);
   },
   finish: function () {
     utils.pageContent(
