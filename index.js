@@ -1,4 +1,4 @@
-const main = document.querySelector("main");
+const main = document.querySelector('main');
 let exerciceArray = [
   { pic: 0, min: 1 },
   { pic: 1, min: 1 },
@@ -15,13 +15,13 @@ let exerciceArray = [
 class Exercice {}
 const utils = {
   pageContent: function (title, content, btn) {
-    document.querySelector("h1").innerHTML = title;
+    document.querySelector('h1').innerHTML = title;
     main.innerHTML = content;
-    document.querySelector(".btn-container").innerHTML = btn;
+    document.querySelector('.btn-container').innerHTML = btn;
   },
   handleEventMinutes: function () {
-    document.querySelectorAll("input[type=number]").forEach((input) => {
-      input.addEventListener("input", (e) => {
+    document.querySelectorAll('input[type=number]').forEach((input) => {
+      input.addEventListener('input', (e) => {
         exerciceArray.map((exo) => {
           if (exo.pic == e.target.id) {
             exo.min = parseInt(e.target.value);
@@ -32,8 +32,8 @@ const utils = {
   },
 
   handleEventArrow: function () {
-    document.querySelectorAll(".arrow").forEach((arrow) => {
-      arrow.addEventListener("click", (e) => {
+    document.querySelectorAll('.arrow').forEach((arrow) => {
+      arrow.addEventListener('click', (e) => {
         let position = 0;
         exerciceArray.map((exo) => {
           if (position === 0) {
@@ -58,14 +58,13 @@ const utils = {
     });
   },
   deleteItem: function () {
-    document.querySelectorAll(".deleteBtn").forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        let findCard = exerciceArray.find(
-          (exo) => exo.pic == e.target.dataset.pic
+    document.querySelectorAll('.deleteBtn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        const index = exerciceArray.indexOf(
+          exerciceArray.find((exo) => exo.pic == e.target.dataset.pic)
         );
-        exerciceArray.splice(findCard, 1);
+        exerciceArray.splice(index, 1);
         page.lobby();
-        console.log(findCard);
       });
     });
   },
@@ -86,7 +85,7 @@ const page = {
             </li>
     `
       )
-      .join("");
+      .join('');
 
     utils.pageContent(
       "Parametrage<i id='reboot' class='fas fa-undo'></i>",
@@ -99,7 +98,7 @@ const page = {
     utils.deleteItem();
   },
   routine: function () {
-    utils.pageContent("routine", "Exercice avec chrono", null);
+    utils.pageContent('routine', 'Exercice avec chrono', null);
   },
   finish: function () {
     utils.pageContent(
