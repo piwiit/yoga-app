@@ -57,6 +57,18 @@ const utils = {
       });
     });
   },
+  deleteItem: function () {
+    document.querySelectorAll(".deleteBtn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        let findCard = exerciceArray.find(
+          (exo) => exo.pic == e.target.dataset.pic
+        );
+        exerciceArray.splice(findCard, 1);
+        page.lobby();
+        console.log(findCard);
+      });
+    });
+  },
 };
 const page = {
   lobby: function () {
@@ -84,6 +96,7 @@ const page = {
     );
     utils.handleEventMinutes();
     utils.handleEventArrow();
+    utils.deleteItem();
   },
   routine: function () {
     utils.pageContent("routine", "Exercice avec chrono", null);
