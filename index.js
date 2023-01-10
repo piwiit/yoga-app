@@ -47,7 +47,6 @@ const utils = {
           }
         });
         page.lobby();
-        console.log(exerciceArray);
       });
     });
   },
