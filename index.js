@@ -36,12 +36,6 @@ const utils = {
       arrow.addEventListener('click', (e) => {
         let position = 0;
         exerciceArray.map((exo) => {
-          if (position === 0) {
-            [exerciceArray[0], exerciceArray[exerciceArray.length - 1]] = [
-              exerciceArray[exerciceArray.length - 1],
-              exerciceArray[0],
-            ];
-          }
           if (exo.pic == e.target.dataset.pic && position !== 0) {
             [exerciceArray[position - 1], exerciceArray[position]] = [
               exerciceArray[position],
