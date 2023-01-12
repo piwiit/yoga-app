@@ -1,5 +1,5 @@
 const main = document.querySelector('main');
-let exerciceArray = [
+const basic = [
   { pic: 0, min: 1 },
   { pic: 1, min: 1 },
   { pic: 2, min: 1 },
@@ -11,6 +11,15 @@ let exerciceArray = [
   { pic: 8, min: 1 },
   { pic: 9, min: 1 },
 ];
+let exerciceArray = [];
+
+(() => {
+  if (localStorage.exercices) {
+    exerciceArray = localStorage.exercices;
+  } else {
+    exerciceArray = basic;
+  }
+})();
 
 class Exercice {}
 const utils = {
@@ -20,7 +29,7 @@ const utils = {
     document.querySelector('.btn-container').innerHTML = btn;
   },
   handleEventMinutes: function () {
-    document.querySelectorAll('input[type=number]').forEach((input) => {
+    document.querySelectorAll('input[type="number"]').forEach((input) => {
       input.addEventListener('input', (e) => {
         exerciceArray.map((exo) => {
           if (exo.pic == e.target.id) {
@@ -41,12 +50,11 @@ const utils = {
               exerciceArray[position],
               exerciceArray[position - 1],
             ];
-            return;
+            page.lobby();
           } else {
             position++;
           }
         });
-        page.lobby();
       });
     });
   },
@@ -60,6 +68,11 @@ const utils = {
         page.lobby();
       });
     });
+  },
+
+  reboot: function () {
+    exerciceArray = basic;
+    page.lobby();
   },
 };
 const page = {
@@ -89,6 +102,7 @@ const page = {
     utils.handleEventMinutes();
     utils.handleEventArrow();
     utils.deleteItem();
+    reboot.addEventListener('click', () => utils.reboot());
   },
   routine: function () {
     utils.pageContent('routine', 'Exercice avec chrono', null);
