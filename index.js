@@ -15,7 +15,7 @@ let exerciceArray = [];
 
 (() => {
   if (localStorage.exercices) {
-    exerciceArray = localStorage.exercices;
+    exerciceArray = JSON.parse(localStorage.exercices);
   } else {
     exerciceArray = basic;
   }
@@ -34,6 +34,7 @@ const utils = {
         exerciceArray.map((exo) => {
           if (exo.pic == e.target.id) {
             exo.min = parseInt(e.target.value);
+            this.store();
           }
         });
       });
@@ -51,6 +52,7 @@ const utils = {
               exerciceArray[position - 1],
             ];
             page.lobby();
+            this.store();
           } else {
             position++;
           }
@@ -66,6 +68,7 @@ const utils = {
         );
         exerciceArray.splice(index, 1);
         page.lobby();
+        this.store();
       });
     });
   },
@@ -73,6 +76,11 @@ const utils = {
   reboot: function () {
     exerciceArray = basic;
     page.lobby();
+    this.store();
+  },
+
+  store: function () {
+    localStorage.exercices = JSON.stringify(exerciceArray);
   },
 };
 const page = {
@@ -103,6 +111,7 @@ const page = {
     utils.handleEventArrow();
     utils.deleteItem();
     reboot.addEventListener('click', () => utils.reboot());
+    start.addEventListener('click', () => this.routine());
   },
   routine: function () {
     utils.pageContent('routine', 'Exercice avec chrono', null);
