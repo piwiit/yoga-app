@@ -39,7 +39,6 @@ class Exercice {
           this.minutes = exerciceArray[this.index].min;
           this.seconds = 0;
           this.updateCountdown();
-          console.log(this.minutes);
         } else {
           page.finish();
         }
@@ -68,12 +67,14 @@ class Exercice {
     audio.play();
   }
 }
+
 const utils = {
   pageContent: function (title, content, btn) {
     document.querySelector('h1').innerHTML = title;
     main.innerHTML = content;
     document.querySelector('.btn-container').innerHTML = btn;
   },
+
   handleEventMinutes: function () {
     document.querySelectorAll('input[type="number"]').forEach((input) => {
       input.addEventListener('input', (e) => {
@@ -106,6 +107,7 @@ const utils = {
       });
     });
   },
+
   deleteItem: function () {
     document.querySelectorAll('.deleteBtn').forEach((btn) => {
       btn.addEventListener('click', (e) => {
@@ -129,6 +131,7 @@ const utils = {
     localStorage.exercices = JSON.stringify(exerciceArray);
   },
 };
+
 const page = {
   lobby: function () {
     let mapArray = exerciceArray
@@ -142,8 +145,7 @@ const page = {
               <i class='fas fa-arrow-alt-circle-left arrow' data-pic=${exo.pic}></i>
               <i class="fas fa-times-circle deleteBtn" data-pic=${exo.pic}></i>
               
-            </li>
-    `
+            </li>`
       )
       .join('');
 
@@ -153,16 +155,19 @@ const page = {
 
       "<button id='start'>Commencer<i class='far fa-play-circle'></i></button>"
     );
+
     utils.handleEventMinutes();
     utils.handleEventArrow();
     utils.deleteItem();
     reboot.addEventListener('click', () => utils.reboot());
     start.addEventListener('click', () => this.routine());
   },
+
   routine: function () {
     const exercice = new Exercice();
     utils.pageContent('routine', exercice.updateCountdown(), null);
   },
+
   finish: function () {
     utils.pageContent(
       "C'est terminé",
